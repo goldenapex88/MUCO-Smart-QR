@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muco - Recycle & Earn</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 60px 20px; 
+            background: #f8f9fa; 
+            margin: 0;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #eee;
+            border-top: 5px solid #34a853;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 30px auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <h1>Muco</h1>
+    <p>Recycle & Earn</p>
+    <div class="spinner"></div>
+    <p>Opening the store...</p>
+
+    <script>
+        const ua = (navigator.userAgent || navigator.vendor || window.opera).toLowerCase();
+        const playPackage = "com.muco.mobile";
+
+        function goToPlayStore() {
+            // Multiple attempts to open Play Store directly
+            window.location.replace("market://details?id=" + playPackage);
+            
+            setTimeout(() => {
+                window.location.replace("https://play.google.com/store/apps/details?id=" + playPackage);
+            }, 500);
+            
+            setTimeout(() => {
+                window.location.replace("https://play.google.com/store/apps/details?id=" + playPackage + "&referrer=utm_source%3Dqr%26utm_medium%3Dsmartlink");
+            }, 1200);
+        }
+
+        if (/iphone|ipad|ipod/.test(ua)) {
+            // iOS - direct to App Store
+            window.location.replace("https://apps.apple.com/my/app/muco-recycle-earn/id6767684862");
+        } 
+        else if (/android/.test(ua)) {
+            // Android - try multiple methods
+            goToPlayStore();
+        } 
+        else {
+            // Desktop fallback
+            window.location.replace("https://play.google.com/store/apps/details?id=" + playPackage);
+        }
+    </script>
+</body>
+</html>
